@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+
+<!--<item>
+<title>[COLOR red][COLOR lime]Buscar Películas [/COLOR] </title>
+<link>$doregex[makelist]</link>
+<regex>
+   <name>makelist</name>
+   <listrepeat><![CDATA[
+          <title>[UPPERCASE][COLOR red][COLOR lime][makelist.param2] [/COLOR][/UPPERCASE]</title>
+          <link>$doregex[makelist2]</link>
+   ]]></listrepeat>
+   <expres>href="(http://hdfull.tv/pelicula/(.+?))"</expres>
+   <page>https://www.bing.com/search?q=$doregex[search]+site%3Ahdfull.tv%2Fpelicula</page>
+   <cookieJar></cookieJar>
+</regex>
+
+<regex>
+<name>search</name>
+<expres><![CDATA[#$pyFunction
+import xbmc
+import xbmcaddon
+import xbmcgui
+def GetLSProData(page_data,Cookie_Jar,m):
+    dialog = xbmcgui.Dialog()
+    d = dialog.input('Buscar', type=xbmcgui.INPUT_ALPHANUM).replace(" ", "+")
+    return d
+]]></expres>
+<page></page>
+<cookieJar></cookieJar>
+</regex>
+
+<regex>
+<name>makelist2</name>
+<listrepeat><![CDATA[
+    <title>[COLOR red][COLOR lime][makelist.param2] [/COLOR] - [COLOR lightslategray][I]streamin.to[/I][/COLOR]</title>
+    <link>$doregex[url]/$doregex[id2]/v.flv</link>
+	<thumbnail></thumbnail>
+]]></listrepeat>
+<expres>http://streamin.to/embed-(.*?)-</expres>
+<page>[makelist.param1]</page>
+<referer></referer>
+<cookieJar></cookieJar>
+</regex>
+
+
+<regex>
+<name>url</name>
+<expres>vplayer[\w\W\s]{0,8}src="(.*?)\/i</expres>
+<page>http://streamin.to/embed-[makelist2.param1]-740x360.html</page>	 
+<referer>http://streamin.to</referer>
+</regex>
+<regex>
+<name>id2</name>
+<expres>flv\|(.*?)\|file</expres>
+<page>http://streamin.to/embed-[makelist2.param1]-740x360.html</page>	 
+<referer>http://streamin.to</referer>
+</regex>  
+<thumbnail></thumbnail>
+</item>-->
+
+<item> 
+<title>[COLOR red][COLOR lime] Estrenos[/COLOR]</title>
+<link>$doregex[makelist3]</link>
+ <regex>
+<name>makelist3</name>
+<listrepeat><![CDATA[
+<title>[COLOR red][COLOR lime] [makelist3.param2][/COLOR]</title>
+<link>$doregex[makelist2]</link>
+<thumbnail></thumbnail>
+<fanart></fanart>
+]]></listrepeat>
+<expres><![CDATA[estrenos:"(.*?)" name:"(.*?)";]]></expres>
+<page>https://raw.githubusercontent.com/Carlesto/Peliculas/master/peliculas.txt</page>
+</regex>
+
+ <regex>
+<name>makelist2</name>
+<listrepeat><![CDATA[
+<title>[COLOR red][COLOR lime] [makelist2.param2] [/COLOR]</title>
+<link>$doregex[makelist]</link>
+<thumbnail>[makelist2.param1]</thumbnail>
+<fanart>[makelist2.param1]</fanart>
+]]></listrepeat>
+<expres><![CDATA[src="(.*?)".*cula(.*?)"[\w\W\s]{0,25}href="(.*?)"]]></expres>
+<page>[makelist3.param1]</page>
+</regex>
+ <regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+ <title>[COLOR red] [makelist2.param2] - [COLOR yellow] Calidad: [/COLOR][COLOR red][makelist.param2][/COLOR]</title>
+<link>$doregex[getpage]</link>
+<regex>
+<name>getpage</name>
+<expres>$pyFunction:'$doregex[get_xpage]'.replace('\/','/')</expres>
+<page></page>
+</regex>
+ <regex>
+<name>get_xpage</name>
+<expres>"file":"(.*?)"</expres>
+<page>$doregex[getmovie]</page>
+</regex>
+ <regex>
+<name>getmovie</name>
+<expres>iframe src="(.*?)\&</expres>
+<page>http://ver-peliculas.org/core/node/[makelist.param1].html</page>
+</regex>
+<thumbnail>[makelist2.param1]</thumbnail>
+<fanart>[makelist2.param1]</fanart>
+]]></listrepeat>
+<expres><![CDATA[episode-id="(.*?)".*>(.*?)<]]></expres>
+<page>[makelist2.param3]</page>
+</regex>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item> 
+
+<item> 
+<title>[COLOR red][COLOR lime] Españolas[/COLOR]</title>
+<link>$doregex[makelist3]</link>
+ <regex>
+<name>makelist3</name>
+<listrepeat><![CDATA[
+<title>[COLOR red][COLOR lime] [makelist3.param2][/COLOR]</title>
+<link>$doregex[makelist2]</link>
+<thumbnail></thumbnail>
+<fanart></fanart>
+]]></listrepeat>
+<expres><![CDATA[espa:"(.*?)" name:"(.*?)";]]></expres>
+<page>https://raw.githubusercontent.com/Carlesto/Peliculas/master/peliculas.txt</page>
+</regex>
+
+ <regex>
+<name>makelist2</name>
+<listrepeat><![CDATA[
+<title>[COLOR red][COLOR lime] [makelist2.param2] [/COLOR]</title>
+<link>$doregex[makelist]</link>
+<thumbnail>[makelist2.param1]</thumbnail>
+<fanart>[makelist2.param1]</fanart>
+]]></listrepeat>
+<expres><![CDATA[src="(.*?)".*cula(.*?)"[\w\W\s]{0,25}href="(.*?)"]]></expres>
+<page>[makelist3.param1]</page>
+</regex>
+ <regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+ <title>[COLOR red] [makelist2.param2] - [COLOR yellow] Calidad: [/COLOR][COLOR red][makelist.param2][/COLOR]</title>
+<link>$doregex[getpage]</link>
+<regex>
+<name>getpage</name>
+<expres>$pyFunction:'$doregex[get_xpage]'.replace('\/','/')</expres>
+<page></page>
+</regex>
+ <regex>
+<name>get_xpage</name>
+<expres>"file":"(.*?)"</expres>
+<page>$doregex[getmovie]</page>
+</regex>
+ <regex>
+<name>getmovie</name>
+<expres>iframe src="(.*?)\&</expres>
+<page>http://ver-peliculas.org/core/node/[makelist.param1].html</page>
+</regex>
+<thumbnail>[makelist2.param1]</thumbnail>
+<fanart>[makelist2.param1]</fanart>
+]]></listrepeat>
+<expres><![CDATA[episode-id="(.*?)".*>(.*?)<]]></expres>
+<page>[makelist2.param3]</page>
+</regex>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item> 
+
+<!--
+<item>
+<title>[COLOR red][COLOR lime] Estrenos[/COLOR]</title>
+<link>$doregex[makelist2]</link>
+
+<regex>
+<name>makelist2</name>
+<listrepeat><![CDATA[
+<title>[COLOR red][COLOR skyblue] [makelist2.param2][/COLOR]</title>
+<link>$doregex[makelist]</link>
+<thumbnail>[makelist2.param3]</thumbnail>
+<fanart>[makelist2.param3]</fanart>
+]]></listrepeat>
+<expres>class="image-block"\shref="(.*?)"\stitle="(.*?)"[\w\W\s]{0,9}src="(.*?)"</expres>
+<page>http://www.yaske.ro/es/peliculas/genero/premieres</page>
+<agent>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36</agent>
+<cookieJar>$doregex[createCFCookie]</cookieJar>
+</regex>
+<regex>
+        <name>createCFCookie</name>
+        <expres></expres>
+        <page>$pyFunction:cloudflare.createCookie('http://www.yaske.ro',Cookie_Jar,'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36')</page>
+        <cookieJar></cookieJar>
+</regex>
+
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+<title>[COLOR red][COLOR cyan][makelist2.param2] [/COLOR] [COLOR gold]Idioma ([makelist.param2]) - Calidad [makelist.param3][/COLOR]</title>
+<link>$doregex[url]/$doregex[id2]/v.flv</link>
+<regex>
+<name>url</name>
+<expres>vplayer[\w\W\s]{0,8}src="(.*?)\/i</expres>
+<page>http://streamin.to/embed-[makelist.param1]-740x360.html</page>	 
+<referer>http://streamin.to</referer>
+</regex>
+<regex>
+<name>id2</name>
+<expres>mp4\|(.*?)\|file</expres>
+<page>http://streamin.to/embed-[makelist.param1]-740x360.html</page>	 
+<referer>http://streamin.to</referer>
+</regex>
+
+<thumbnail>[makelist2.param3]</thumbnail>
+<fanart>[makelist2.param3]</fanart>
+]]></listrepeat>
+<expres>streamin.to%2F(.*?)%3F[\w\W\s]{0,260}flags/(.*?)_[\w\W\s]{0,190}title="(.*?)\(</expres>
+<page>[makelist2.param1]</page>
+<agent>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36</agent>
+<cookieJar>$doregex[createCFCookie]</cookieJar>
+</regex>
+<regex>
+        <name>createCFCookie</name>
+        <expres></expres>
+        <page>$pyFunction:cloudflare.createCookie('http://www.yaske.ro',Cookie_Jar,'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36')</page>
+        <cookieJar></cookieJar>
+</regex>
+</item>-->
+
+
+
+<item>
+<title>[COLOR red][COLOR lime] Por Generos[/COLOR]</title>
+<link>$doregex[makelist2]</link>
+<regex>
+<name>makelist2</name>
+<listrepeat><![CDATA[
+<title>[COLOR red][COLOR lime] [makelist2.param2][/COLOR]</title>
+<link>$doregex[makelist0]</link>
+]]></listrepeat>
+<expres><![CDATA[href="(.*?)"[\w\W\s]{0,40}btn-bordered[\w\W\s]{0,11}">(.*?)<]]></expres>
+<page>http://lacajita.xyz/listado/</page>
+</regex>
+<regex>
+<name>makelist0</name>
+<listrepeat><![CDATA[
+<title>[COLOR red][COLOR lime] [makelist0.param3][/COLOR]</title>
+<link>$doregex[makelist]</link>
+<thumbnail>[makelist0.param2]</thumbnail>
+<fanart>[makelist0.param2]</fanart>
+]]></listrepeat>
+<expres><![CDATA[href='(.*?)'[\w\W\s]{0,60}src='(.*?)' title='(.*?)']]></expres>
+<page>http://lacajita.xyz[makelist2.param1]</page>
+</regex>
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+<title>[COLOR red][COLOR lime] [makelist0.param3][/COLOR] - Idioma:[COLOR lime][makelist.param2][/COLOR]</title>
+<link>$doregex[url]/$doregex[id2]/v.flv</link>
+<thumbnail>[makelist0.param2]</thumbnail>
+<regex>
+<name>url</name>
+<expres>vplayer[\w\W\s]{0,8}src="(.*?)\/i</expres>
+<page>http://streamin.to/embed-$doregex[id]-740x360.html</page>	 
+<referer>http://streamin.to</referer>
+</regex>
+<regex>
+<name>id2</name>
+<expres>image\|[\w\W\s]{0,3}\|(.*?)\|file</expres>
+<page>http://streamin.to/embed-$doregex[id]-740x360.html</page>	 
+<referer>http://streamin.to</referer>
+</regex>
+<regex>
+<name>id</name>
+<expres>http://streamin.to/(.*?)"</expres>
+<page>http://lacajita.xyz[makelist.param1]</page>	 
+<referer>http://streamin.to</referer>
+</regex>
+]]></listrepeat>
+<expres><![CDATA[href="(.*?)"[\w\W\s]{0,50}streamin[\w\W\s]{0,650}banderas/(.*?).png]]></expres>
+<page>http://lacajita.xyz[makelist0.param1]</page>
+</regex>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>-->
+
+
+<!--
+<item>
+<title>[COLOR red][COLOR lime]Estrenos[/COLOR] </title>
+<link>$doregex[makelist2]</link>
+
+<regex>
+<name>makelist2</name>
+<listrepeat><![CDATA[
+<title>[COLOR red][COLOR skyblue] [makelist2.param3][/COLOR]  </title>
+<link>$doregex[makelist]</link>
+<thumbnail>[makelist2.param2]</thumbnail>
+<fanart>[makelist2.param2]</fanart>
+]]></listrepeat>
+<expres>href="http://hdfull.tv/pelicula/(.*?)"[\w\W\s]{0,71}spec-border[\w\W\s]{0,5}src="(.*?)"[\w\W\s]{0,2}alt="(.*?)"</expres>
+<page>http://hdfull.tv/peliculas-estreno</page>
+<agent>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36</agent>
+<cookieJar>$doregex[createCFCookie]</cookieJar>
+
+</regex>
+
+<regex>
+        <name>createCFCookie</name>
+        <expres></expres>
+        <page>$pyFunction:cloudflare.createCookie('http://hdfull.tv',Cookie_Jar,'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36')</page>
+        <cookieJar></cookieJar>
+</regex>
+
+
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+<title>[COLOR red][COLOR lightblue][makelist2.param3] [/COLOR] [COLOR lightslategray] [/COLOR] </title>
+<link>$doregex[makelist0]</link>
+<thumbnail>[makelist2.param2]</thumbnail>
+<fanart>[makelist2.param2]</fanart>
+]]></listrepeat>
+<expres>http://streamin.to/embed-(.*?)-</expres>
+<page>http://hdfull.tv/pelicula/[makelist2.param1]</page>
+<agent>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36</agent>
+<cookieJar>$doregex[createCFCookie]</cookieJar>
+
+</regex>
+
+<regex>
+        <name>createCFCookie</name>
+        <expres></expres>
+        <page>$pyFunction:cloudflare.createCookie('http://hdfull.tv',Cookie_Jar,'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36')</page>
+        <cookieJar></cookieJar>
+</regex>
+</regex>
+
+
+
+<regex>
+<name>makelist0</name>
+<listrepeat><![CDATA[
+
+<title>[COLOR red][COLOR lightblue][makelist2.param3] [/COLOR] [COLOR lightslategray] [/COLOR] </title>
+<link>$doregex[url]/$doregex[id2]/v.flv</link>
+<regex>
+<name>url</name>
+<expres>vplayer[\w\W\s]{0,8}src="(.*?)\/i</expres>
+<page>http://streamin.to/embed-[makelist0.param1]-740x360.html</page>	 
+<referer>http://streamin.to</referer>
+</regex>
+<regex>
+<name>id2</name>
+<expres>flv\|(.*?)\|file</expres>
+<page>http://streamin.to/embed-[makelist0.param1]-740x360.html</page>	 
+<referer>http://streamin.to</referer>
+</regex>>
+<thumbnail>[makelist2.param2]</thumbnail>
+<fanart>[makelist2.param2]</fanart>
+
+]]></listrepeat>
+
+<expres>http://streamin.to/embed-(.*?)-</expres>
+<page>http://hdfull.tv/pelicula/[makelist2.param1]</page>
+<agent>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36</agent>
+<cookieJar>$doregex[createCFCookie]</cookieJar>
+
+</regex>
+
+<regex>
+        <name>createCFCookie</name>
+        <expres></expres>
+        <page>$pyFunction:cloudflare.createCookie('http://hdfull.tv',Cookie_Jar,'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36')</page>
+        <cookieJar></cookieJar>
+</regex>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red][COLOR lime]Actualizadas[/COLOR] </title>
+<link>$doregex[makelist2]</link>
+
+
+<regex>
+<name>makelist2</name>
+<listrepeat><![CDATA[
+<title>[COLOR red][COLOR skyblue] [makelist2.param3][/COLOR]  </title>
+<link>$doregex[makelist]</link>
+<thumbnail>[makelist2.param2]</thumbnail>
+<fanart>[makelist2.param2]</fanart>
+]]></listrepeat>
+<expres>href="http://hdfull.tv/pelicula/(.*?)"[\w\W\s]{0,71}spec-border[\w\W\s]{0,5}src="(.*?)"[\w\W\s]{0,2}alt="(.*?)"</expres>
+<page>http://hdfull.tv/peliculas-actualizadas</page>
+<agent>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36</agent>
+<cookieJar>$doregex[createCFCookie]</cookieJar>
+
+</regex>
+
+<regex>
+        <name>createCFCookie</name>
+        <expres></expres>
+        <page>$pyFunction:cloudflare.createCookie('http://hdfull.tv',Cookie_Jar,'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36')</page>
+        <cookieJar></cookieJar>
+</regex>
+</regex>
+
+  
+
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+
+<title>[COLOR red][COLOR skyblue] [makelist2.param3][/COLOR]  </title> lightslategray][[makelist.param1]][/COLOR]</title>
+<link>$doregex[url]/$doregex[id2]/v.flv</link>
+<regex>
+<name>url</name>
+<expres>vplayer[\w\W\s]{0,8}src="(.*?)\/i</expres>
+<page>http://streamin.to/embed-[makelist.param1]-740x360.html</page>	 
+<referer>http://streamin.to</referer>
+</regex>
+<regex>
+<name>id2</name>
+<expres>flv\|(.*?)\|file</expres>
+<page>http://streamin.to/embed-[makelist.param1]-740x360.html</page>	 
+<referer>http://streamin.to</referer>
+</regex>
+<thumbnail>[makelist2.param2]</thumbnail>
+<fanart>[makelist2.param2]</fanart>
+
+]]></listrepeat>
+
+<expres>http://streamin.to/embed-(.*?)-</expres>
+<page>http://hdfull.tv/pelicula/[makelist2.param1]</page>
+<agent>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36</agent>
+<cookieJar>$doregex[createCFCookie]</cookieJar>
+
+</regex>
+
+<regex>
+        <name>createCFCookie</name>
+        <expres></expres>
+        <page>$pyFunction:cloudflare.createCookie('http://hdfull.tv',Cookie_Jar,'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36')</page>
+        <cookieJar></cookieJar>
+</regex>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red][COLOR lime]Por Genero[/COLOR]  </title>
+<link>$doregex[makelist3]</link> 
+<thumbnail> </thumbnail>  
+
+
+
+<regex>
+<name>makelist3</name>
+<listrepeat><![CDATA[
+<title>[COLOR red][COLOR skyblue] [makelist3.param2][/COLOR]  </title>
+<link>$doregex[showPages]</link> 
+
+]]></listrepeat>
+<expres>http://hdfull.tv/tags-peliculas/(.*?)">(.*?)<</expres>
+<page>http://hdfull.tv/</page>
+<agent>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36</agent>
+<cookieJar>$doregex[createCFCookie]</cookieJar>
+
+</regex>
+
+<regex>
+        <name>createCFCookie</name>
+        <expres></expres>
+        <page>$pyFunction:cloudflare.createCookie('http://hdfull.tv',Cookie_Jar,'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36')</page>
+        <cookieJar></cookieJar>
+</regex>
+</regex>
+
+
+
+<regex>
+<name>showPages</name>
+<listrepeat><![CDATA[
+   <title>[COLOR red][COLOR skyblue] Pagina [showPages.param1][/COLOR] </title>
+    <link>$doregex[makelist2]</link>
+       
+]]></listrepeat>
+<expres>([0-9]+),?</expres>
+<page>$doregex[getPageNumbers]</page>
+<referer></referer>
+<cookieJar></cookieJar>
+</regex>
+
+
+<regex>
+<name>getPageNumbers</name>
+<expres><![CDATA[#$pyFunction
+import re
+def GetLSProData(page_data,Cookie_Jar,m):
+  frompage,topage=re.findall( "date/1\">([0-9]+)[\w\W\s]{0,614}date/([0-9]+)",page_data)[0]
+  frompage=int(frompage)
+  topage=int(topage)
+  print range(frompage,topage)
+  return range(frompage,topage)
+]]></expres>
+<page>http://hdfull.tv/tags-peliculas/[makelist3.param1]/date/1</page>
+<agent>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36</agent>
+<cookieJar>$doregex[createCFCookie]</cookieJar>
+
+</regex>
+
+<regex>
+        <name>createCFCookie</name>
+        <expres></expres>
+        <page>$pyFunction:cloudflare.createCookie('http://hdfull.tv',Cookie_Jar,'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36')</page>
+        <cookieJar></cookieJar>
+</regex>
+</regex>
+
+
+
+
+
+<regex>
+<name>makelist2</name>
+<listrepeat><![CDATA[
+<title>[COLOR red][COLOR skyblue] [makelist2.param3][/COLOR]  </title>
+<link>$doregex[makelist]</link>
+<thumbnail>[makelist2.param2]</thumbnail>
+<fanart>[makelist2.param2]</fanart>
+]]></listrepeat>
+<expres>href="http://hdfull.tv/pelicula/(.*?)"[\w\W\s]{0,71}spec-border[\w\W\s]{0,5}src="(.*?)"[\w\W\s]{0,2}alt="(.*?)"</expres>
+<page>http://hdfull.tv/tags-peliculas/[makelist3.param1]/date/[showPages.param1]</page>
+<agent>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36</agent>
+<cookieJar>$doregex[createCFCookie]</cookieJar>
+
+</regex>
+
+<regex>
+        <name>createCFCookie</name>
+        <expres></expres>
+        <page>$pyFunction:cloudflare.createCookie('http://hdfull.tv',Cookie_Jar,'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36')</page>
+        <cookieJar></cookieJar>
+</regex>
+</regex>
+
+  
+
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+
+<title>[COLOR red][COLOR skyblue] [makelist2.param3][/COLOR]  </title>
+<link>$doregex[url]/$doregex[id2]/v.flv</link>
+<regex>
+<name>url</name>
+<expres>vplayer[\w\W\s]{0,8}src="(.*?)\/i</expres>
+<page>http://streamin.to/embed-[makelist.param1]-740x360.html</page>	 
+<referer>http://streamin.to</referer>
+</regex>
+<regex>
+<name>id2</name>
+<expres>flv\|(.*?)\|file</expres>
+<page>http://streamin.to/embed-[makelist.param1]-740x360.html</page>	 
+<referer>http://streamin.to</referer>
+</regex>
+<thumbnail>[makelist2.param2]</thumbnail>
+<fanart>[makelist2.param2]</fanart>
+
+]]></listrepeat>
+
+<expres>http://streamin.to/embed-(.*?)-</expres>
+<page>http://hdfull.tv/pelicula/[makelist2.param1]</page>
+<agent>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36</agent>
+<cookieJar>$doregex[createCFCookie]</cookieJar>
+
+</regex>
+
+<regex>
+        <name>createCFCookie</name>
+        <expres></expres>
+        <page>$pyFunction:cloudflare.createCookie('http://hdfull.tv',Cookie_Jar,'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36')</page>
+        <cookieJar></cookieJar>
+</regex>
+</item>-->
