@@ -122,49 +122,6 @@ def GetLSProData(page_data,Cookie_Jar,m):
 </regex>
 </item>
 
-<item>
-<title>[COLOR gold][B]3D[/B][COLOR lime] Passengers[/COLOR]</title>
-<link>$doregex[GetPageUrl]</link>
-<regex>
-<name>GetPageUrl</name>
-<expres><![CDATA[#$pyFunction
-def GetLSProData(page_data,Cookie_Jar,m,url='https://drive.google.com/open?id=0B5zoyWG3nNtCbWgtSzY4ZTRNYW8'):
-    import urlresolver
-    u = urlresolver.resolve(url)
-    return u
-]]></expres>
-<page></page>
-<cookieJar></cookieJar>
-</regex>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <item>
 <title>[COLOR gold][B]3D[/B][COLOR lime] Passengers[/COLOR]</title>
